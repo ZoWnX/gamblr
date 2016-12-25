@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% block title %}pokersessions/active{% endblock %}
+
+{% block content %}
+{% load tz %}
+    <h2>pokersessions/active</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class='btn' type="submit">Submit Update</button>
+        <button class='btn' type="submit" name='end_session'>Submit Update And End Session</button>
+      </form>
+      <h2><center>Updates<center></h2>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Date Time (Local)</th>
+            <th>Buyin</th>
+            <th>Chip Stack</th>
+            <th>Comment</th>
+            <th>Edit</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for update in view.active_session.session_updates %}
+          <tr>
+            <td>
+              {% timezone update.poker_session.location.timezone %}
+                {{ update.time|date:"Y-m-d H:i" }}
+              {% endtimezone %}
+            </td>
+            <td>
+              {{ update.buy_in }}
+            </td>
+            <td>
+              {{ update.chip_stack }}
+            </td>
+            <td>
+              {{ update.comment }}
+            </td>
+            <td>
+              edit
+            </td>
+            <td>
+              <a href="{% url 'pokersessions:delete_update' update.id %}">
+                delete
+              </a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}

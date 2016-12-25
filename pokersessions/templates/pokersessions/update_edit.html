@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}pokersessions/update/edit{% endblock %}
+
+{% block content %}
+{% load tz %}
+    <h2>pokersessions/update/edit</h2>
+      <form method="post">
+        {% csrf_token %}
+        {% timezone poker_session.location.timezone %}
+        {{ form.as_p }}
+        {% endtimezone %}
+        <button type="submit">Edit Update</button>
+      </form>
+{% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}pokersessions/create{% endblock %}
+
+{% block content %}
+    <h2>pokersessions/create</h2>
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Create Poker Session</button>
+      </form>
+{% endblock %}

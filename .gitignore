@@ -1,0 +1,7 @@
+*.pyc
+*~
+__pycache__
+myvenv
+gamblr.development.db
+/static
+.DS_Store
