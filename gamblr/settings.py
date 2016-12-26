@@ -25,7 +25,7 @@ SECRET_KEY = '9n*@xw(7__p*ywg5vbk5@v&1y!par7ay3v0-o7z%j(i(&=ka!='
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['.gamblr.org']
 
 
 # Application definition
