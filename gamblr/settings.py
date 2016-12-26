@@ -81,11 +81,11 @@ WSGI_APPLICATION = 'gamblr.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'gamblr-development',
-        'USER': 'ubuntu',
-        'PASSWORD': 'postgres',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ['GAMBLR_DATABASE_NAME'],
+        'USER': os.environ['GAMBLR_DATABASE_USER'],
+        'PASSWORD': os.environ['GAMBLR_DATABASE_PASSWORD'],
+        'HOST': os.environ['GAMBLR_DATABASE_HOST'],
+        'PORT': os.environ['GAMBLR_DATABASE_PORT'],
     }
 }
 
