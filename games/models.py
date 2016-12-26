@@ -11,7 +11,11 @@ class Currency(models.Model):
     code = models.CharField(max_length=3)
 
     def __str__(self):
-        return 'Currency: {0} - {1} - {2}'.format(self.name, self.short_name, self.symbol)
+        return 'Currency: {0} - {1} - {2}'.format(self.name, self.code, self.symbol)
+
+    def short_str(self):
+        return '{0} ({1})'.format(self.name, self.symbol)
+
 
     class Meta:
         verbose_name_plural = "currencies"
@@ -30,10 +34,10 @@ class Game(models.Model):
     )
 
     def short_str(self):
-        return '{0}'.format(self.title)
+        return '{1} ({0})'.format(self.title, self.currency.symbol)
 
     def __str__(self):
-        return '{0} min:{1} max:{2}'.format(self.title, self.min_buy_in, self.max_buy_in)
+        return '{0} min:{1} max:{2} currency:{3}'.format(self.title, self.min_buy_in, self.max_buy_in, self.currency.symbol)
 
     class Meta:
         ordering = ('title',)

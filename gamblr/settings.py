@@ -80,8 +80,12 @@ WSGI_APPLICATION = 'gamblr.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'gamblr.development.db'),
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'gamblr-development',
+        'USER': 'ubuntu',
+        'PASSWORD': 'postgres',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
@@ -129,7 +133,7 @@ STATICFILES_DIRS = [
 ]
 
 FIXTURE_DIRS = [
-    os.path.join(BASE_DIR, "fixture"),
+    os.path.join(BASE_DIR, "fixtures"),
 ]
 
 LOGIN_URL = '/accounts/login/'

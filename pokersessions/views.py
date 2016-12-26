@@ -116,6 +116,13 @@ class AddPokerSessionUpdateView(LoginRequiredMixin, FormView):
     template_name = "pokersessions/update_add.html"
     form_class = PokerSessionUpdateForm
     success_url = reverse_lazy('pokersessions:index')
+    poker_session = None
+
+    def get(self, request, *args, **kwargs):
+        session_id = self.kwargs['session_id']
+        self.poker_session = PokerSession.objects.get(pk=session_id)
+
+        return super(AddPokerSessionUpdateView, self).get(request, args, kwargs)
 
     def form_valid(self, form):
         resp = super(AddPokerSessionUpdateView, self).form_valid(form)
@@ -142,6 +149,11 @@ class AddPokerSessionUpdateView(LoginRequiredMixin, FormView):
             return HttpResponseRedirect(reverse('pokersessions:edit', kwargs={'session_id':session_id}))
 
         return HttpResponseRedirect(reverse('pokersessions:add_update', kwargs={'session_id':session_id}))
+
+    def get_initial(self):
+        session_id = self.kwargs['session_id']
+        poker_session = PokerSession.objects.get(pk=session_id)
+        return { "time": poker_session.end_time() }
 
 class DeletePokerSessionView(LoginRequiredMixin, DeleteView):
 

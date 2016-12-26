@@ -52,6 +52,7 @@ class PokerSessionCreateForm(forms.Form):
          required=True,
          label="Total Buy in"
       )
+   public = forms.BooleanField()
 
 class PokerSessionStartForm(forms.Form):
    location = forms.ModelChoiceField(

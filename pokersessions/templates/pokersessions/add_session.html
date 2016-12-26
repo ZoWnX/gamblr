@@ -3,10 +3,13 @@
 {% block title %}pokersessions/add{% endblock %}
 
 {% block content %}
+{% load tz %}
     <h2>pokersessions/add</h2>
       <form method="post">
         {% csrf_token %}
+        {% localtime off %}
         {{ form.as_p }}
+        {% endlocaltime %}
         <button type="submit">Add Session</button>
       </form>
 {% endblock %}

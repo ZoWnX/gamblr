@@ -29,10 +29,10 @@
               {% endtimezone %}
             </td>
             <td>
-              {{ update.buy_in }}
+              {{ update.buy_in_pretty }}
             </td>
             <td>
-              {{ update.chip_stack }}
+              {{ update.chip_stack_pretty }}
             </td>
             <td>
               {{ update.comment }}
@@ -110,7 +110,7 @@ var config = {
 			yAxes: [{
 				scaleLabel: {
 					display: true,
-					labelString: 'Cash'
+					labelString: '{{ view.poker_session.game.currency.short_str }}'
 				}
 			}]
 		},

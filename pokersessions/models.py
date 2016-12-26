@@ -93,3 +93,19 @@ class PokerSessionUpdate(models.Model):
             )
         return s
 
+    def chip_stack_pretty(self):
+        if (self.chip_stack == None):
+            return ""
+        return "{0}{1:,}".format(
+            self.poker_session.game.currency.symbol,
+            float(str(self.chip_stack))
+        )
+
+    def buy_in_pretty(self):
+        if (self.buy_in == None):
+            return ""
+        return "{0}{1:,}".format(
+            self.poker_session.game.currency.symbol,
+            float(str(self.buy_in))
+        )
+
