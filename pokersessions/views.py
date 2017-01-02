@@ -13,6 +13,10 @@ from django.views.generic.edit import FormView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib import messages
 from django.http import HttpResponse, HttpResponseRedirect
+from django.contrib.auth.decorators import login_required
+from django.core.urlresolvers import reverse
+from django.db import IntegrityError, transaction
+from django.forms.formsets import formset_factory
 
 from accounts.models import User
 from .models import PokerSession, PokerSessionUpdate
@@ -66,51 +70,94 @@ class CreatePokerSessionView(LoginRequiredMixin, FormView):
 
         messages.success(self.request, '{0} Created'.format(poker_session))
 
-        return resp
+        return redirect('pokersessions:edit', session_id=poker_session.id)
+
+@login_required
+def edit_poker_session(request, session_id):
+    user = request.user
+
+    # Create the formset, specifying the form and formset we want to use.
+    UpdateFormSet = formset_factory(PokerSessionUpdateForm)
+    poker_session = PokerSession.objects.get(pk=session_id)
+    tz = timezone(poker_session.location.timezone)
+
+    if(poker_session.user.id != user.id):
+        messages.error(request, 'Not the owner of the poker session')
+        return redirect('pokersession:index')
+
+    if(request.method == "POST"):
+        poker_session_form = PokerSessionForm(request.POST)
+        update_formset = UpdateFormSet(request.POST)
+
+        if(poker_session_form.is_valid() and update_formset.is_valid()):
+            poker_session.location = poker_session_form.cleaned_data['location']
+            poker_session.game = poker_session_form.cleaned_data['game']
+            poker_session.public = poker_session_form.cleaned_data['public']
+
+            poker_session.save()
+
+            new_updates = []
+
+            for update_form in update_formset:
+                clean = update_form.cleaned_data
+                time = clean.get('time')
+                if time is None:
+                    continue
+
+                time = tz.localize(time.replace(tzinfo=None)).astimezone(pytz.utc)
+
+                chip_stack = clean['chip_stack']
+                buy_in = clean['buy_in']
+                comment = clean['comment']
+                if not (chip_stack is None and buy_in is None and comment is None):
+                    new_updates.append(PokerSessionUpdate(
+                            poker_session=poker_session,
+                            time=time,
+                            chip_stack=chip_stack,
+                            buy_in=buy_in,
+                            comment=comment
+                        ))
+
+            try:
+                with transaction.atomic():
+                    PokerSessionUpdate.objects.filter(poker_session=poker_session).delete()
+                    PokerSessionUpdate.objects.bulk_create(new_updates)
+                    messages.success(request, 'Poker Session Updated')
+
+            except IntegrityError:
+                messages.error(request, "There was an error with the update")
+
+        else:
+            context = {
+                'poker_session_form': poker_session_form,
+                'update_formset': update_formset,
+                'poker_session': poker_session,
+            }
+
+            return render(request, 'pokersessions/edit_all.html', context)
+
+    updates = poker_session.session_updates()
+    update_info = []
+    for update in updates:
+        time = update.time.astimezone(tz)
+        update_info.append({
+            'time': time.strftime("%Y-%m-%d %H:%M"),
+            'buy_in': update.buy_in,
+            'chip_stack': update.chip_stack,
+            'comment': update.comment
+        })
+    poker_session_form = PokerSessionForm(instance=poker_session)
+    update_formset = UpdateFormSet(initial=update_info)
+
+    context = {
+        'poker_session_form': poker_session_form,
+        'update_formset': update_formset,
+        'poker_session': poker_session,
+    }
+
+    return render(request, 'pokersessions/edit.html', context)
 
 
-class EditPokerSessionView(LoginRequiredMixin, FormView):
-    template_name = "pokersessions/edit.html"
-    form_class = PokerSessionForm
-    poker_session = None
-    success_url = reverse_lazy('pokersessions:index')
-
-    def get(self, request, *args, **kwargs):
-        session_id = self.kwargs['session_id']
-        self.poker_session = PokerSession.objects.get(pk=session_id)
-
-        return super(EditPokerSessionView, self).get(request, args, kwargs)
-
-    def post(self, request, *args, **kwargs):
-        session_id = self.kwargs['session_id']
-        self.poker_session = PokerSession.objects.get(pk=session_id)
-
-        return super(EditPokerSessionView, self).post(request, args, kwargs)
-
-    def get_initial(self):
-        initial = {
-            'location': self.poker_session.location,
-            'game' : self.poker_session.game
-        }
-        return initial
-
-    def form_valid(self, form):
-        resp = super(EditPokerSessionView, self).form_valid(form)
-        clean = form.cleaned_data
-        location = clean['location']
-        game = clean['game']
-        public = clean['public']
-
-        session_id = self.kwargs['session_id']
-        poker_session = PokerSession.objects.get(pk=session_id)
-        poker_session.location = location
-        poker_session.game = game
-        poker_session.public = public
-        poker_session.save()
-
-        messages.success(self.request, '{0} Updated'.format(poker_session))
-
-        return self.render_to_response(self.get_context_data(form=form))
 
 class AddPokerSessionUpdateView(LoginRequiredMixin, FormView):
     template_name = "pokersessions/update_add.html"

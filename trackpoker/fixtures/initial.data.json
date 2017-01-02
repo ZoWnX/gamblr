@@ -1,0 +1,56 @@
+[{
+    "model": "pokersessions.pokersession",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "location": 1,
+        "active": false,
+        "game": 2,
+        "public": true,
+        "deleted": false
+    }
+}, {
+    "model": "pokersessions.pokersessionupdate",
+    "pk": 1,
+    "fields": {
+        "poker_session": 1,
+        "time": "2016-10-05T20:40:00Z",
+        "chip_stack": "500000.00",
+        "buy_in": "500000.00",
+        "comment": null,
+        "deleted": false
+    }
+}, {
+    "model": "pokersessions.pokersessionupdate",
+    "pk": 6,
+    "fields": {
+        "poker_session": 1,
+        "time": "2016-10-05T20:53:00Z",
+        "chip_stack": null,
+        "buy_in": "1100000.00",
+        "comment": "",
+        "deleted": false
+    }
+}, {
+    "model": "pokersessions.pokersessionupdate",
+    "pk": 9,
+    "fields": {
+        "poker_session": 1,
+        "time": "2016-10-06T05:46:00Z",
+        "chip_stack": "3495000.00",
+        "buy_in": null,
+        "comment": "",
+        "deleted": false
+    }
+}, {
+    "model": "pokersessions.pokersessionupdate",
+    "pk": 10,
+    "fields": {
+        "poker_session": 1,
+        "time": "2016-10-06T05:31:00Z",
+        "chip_stack": "2480000.00",
+        "buy_in": null,
+        "comment": "",
+        "deleted": false
+    }
+}]

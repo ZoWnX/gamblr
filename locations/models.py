@@ -9,7 +9,7 @@ from accounts.models import User
 # Create your models here.
 class Location(models.Model):
     name = models.CharField(max_length=256)
-    address = models.TextField()
+    address = models.TextField(blank=True)
     user = models.ForeignKey(User)
     public = models.BooleanField(default=False)
     #games = models.ManyToManyField(Game)

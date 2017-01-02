@@ -11,7 +11,7 @@
     <meta name="author" content="">
     <link rel="icon" href="../../favicon.ico">
 
-    <title>Gamblr|{% block title %}{% endblock %}</title>
+    <title>Track.Poker|{% block title %}{% endblock %}</title>
 
     <!-- Bootstrap core CSS -->
     <link rel="stylesheet"
@@ -26,9 +26,10 @@
 
   <body>
 
-    <nav class="navbar navbar-fixed-top navbar-dark bg-inverse">
-      <a class="navbar-brand" href="#">Gamblr</a>
-      <ul class="nav navbar-nav">
+    <nav class="navbar navbar-default navbar-fixed-top">
+      <div class="container">
+      <a class="navbar-brand" href="#">Track.poker</a>
+      <ul class="nav navbar-nav float-lg-right">
         <li class="nav-item active">
           <a class="nav-link" href="#">Home</a>
         </li>
@@ -38,8 +39,8 @@
           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Session</a>
           <div class="dropdown-menu" aria-labelledby="sessionDropdown">
             <a class="dropdown-item" href="{% url 'pokersessions:index' %}">Index</a>
-            <a class="dropdown-item" href="{% url 'pokersessions:start' %}">Start</a>
             <a class="dropdown-item" href="{% url 'pokersessions:active' %}">Active</a>
+            <a class="dropdown-item" href="{% url 'pokersessions:start' %}">Start</a>
             <a class="dropdown-item" href="{% url 'pokersessions:create' %}">Create</a>
             <div class="dropdown-divider"></div>
             <a class="dropdown-item" href="{% url 'pokersessions:view' user.id %}">Public View</a>
@@ -57,6 +58,7 @@
         </li>
         {% endif %}
       </ul>
+      </div>
     </nav>
 
     <div class="container">

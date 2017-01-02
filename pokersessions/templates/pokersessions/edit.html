@@ -1,15 +1,13 @@
 {% extends 'base.html' %}
 
-{% block title %}pokersessions/edit{% endblock %}
+{% block title %}Edit Poker Session{% endblock %}
 
 {% block content %}
 {% load tz %}
-    <h2>pokersessions/edit</h2>
+    <h2>Poker Session Edit</h2>
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
-        <button class='btn' type="submit">Edit Session</button>
-      </form>
+        {{ poker_session_form.as_p }}
       <h2><center>Updates<center></h2>
       <table class="table">
         <thead>
@@ -18,38 +16,117 @@
             <th>Buyin</th>
             <th>Chip Stack</th>
             <th>Comment</th>
-            <th>Edit</th>
-            <th>Delete</th>
+            <th></th>
           </tr>
         </thead>
-        <tbody>
-          {% for update in view.poker_session.session_updates %}
+        {{ update_formset.management_form }}
+        <tbody class="update-form-container">
+          {% for update_form in update_formset %}
+          {% if update_form.errors %}
           <tr>
+            <td colspan="4">
+              {{ update_form.errors }}
+            </td>
+          </tr>
+          {% endif %}
+          <tr class='update-row'>
             <td>
-              {% timezone update.poker_session.location.timezone %}
-                {{ update.time|date:"Y-m-d H:i" }}
+              {% timezone poker_session.location.timezone %}
+                {{ update_form.time }}
               {% endtimezone %}
             </td>
             <td>
-              {{ update.buy_in_pretty }}
+              {{ update_form.buy_in }}
             </td>
             <td>
-              {{ update.chip_stack_pretty }}
+              {{ update_form.chip_stack }}
             </td>
             <td>
-              {{ update.comment }}
+              {{ update_form.comment }}
             </td>
             <td>
-              edit
-            </td>
-            <td>
-              <a href="{% url 'pokersessions:delete_update' update.id %}">
-                delete
-              </a>
+              <button class='btn' type="button" id="del-row-button">X</button>
             </td>
           </tr>
           {% endfor %}
         </tbody>
       </table>
-      <a href="{% url 'pokersessions:add_update' view.poker_session.id %}">Add Update</a>
+      <button class="btn" id="add-row-button" type="button">Add Update</button>
+      <button class='btn' type="submit">Edit Session</button>
+      </form>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.formset/1.2.2/jquery.formset.min.js"></script>
+
+<script type="text/html" id="update-template">
+  <tr class="update-row">
+    <td>
+      {{ update_formset.empty_form.time }}
+    </td>
+    <td>
+      {{ update_formset.empty_form.buy_in }}
+    </td>
+    <td>
+      {{ update_formset.empty_form.chip_stack }}
+    </td>
+    <td>
+      {{ update_formset.empty_form.comment }}
+    </td>
+    <td>
+      <button class='btn' type="button" id="del-row-button">X</button>
+    </td>
+  </tr>
+</script>
+
+<script>
+function updateFormElementIndices(formClass) {
+  var forms = $('.' + formClass);
+
+  forms.each(function(i, el) {
+      //var curIndex = $(el).children('td')[0]attr('id').match(/\d+/)[0];
+
+      var inputs = $(el).find('input');
+      var curIndex = inputs.attr('id').match(/\d+/)[0];
+
+      inputs.each(function(j, input) {
+          $(input).attr('id', $(input).attr('id').replace(curIndex, i));
+          $(input).attr('name', $(input).attr('name').replace(curIndex, i));
+      });
+  });
+}
+
+$(document).ready(function() {
+    $(document).on('click','#add-row-button', function(ev) {
+        ev.preventDefault();
+        var count = $('.update-form-container').children().length;
+        var tmplMarkup = $('#update-template').html();
+        var compiledTmpl = tmplMarkup.replace(/__prefix__/g, count);
+        $('.update-form-container').append(compiledTmpl);
+
+        // update form count
+        var totalFormsField = $('#id_form-TOTAL_FORMS');
+        var totalForms = parseInt(totalFormsField.val()) + 1;
+        totalFormsField.val(totalForms);
+
+        // some animate to scroll to view our new form
+        $('html, body').animate({
+                scrollTop: $("#add-row-button").position().top-200
+            }, 800);
+    });
+
+    $(document).on('click','#del-row-button', function(ev) {
+      ev.preventDefault();
+      var totalFormsField = $('#id_form-TOTAL_FORMS');
+      var totalForms = parseInt(totalFormsField.val()) - 1;
+      totalFormsField.val(totalForms);
+
+      $(this).closest('.update-row').remove();
+
+      // for formset functionality to work properly, need to update all existing form ids so they're sequential
+      updateFormElementIndices('update-row');
+    });
+});
+</script>
+
 {% endblock %}

@@ -1,0 +1,305 @@
+[{
+   "model": "games.currency",
+   "pk": 1,
+   "fields": {
+      "name": "European Euro",
+      "symbol": "€",
+      "code": "EUR"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 2,
+   "fields": {
+      "name": "United States Dollar",
+      "symbol": "$",
+      "code": "USD"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 3,
+   "fields": {
+      "name": "Australia Dollar",
+      "symbol": "$",
+      "code": "AUD"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 4,
+   "fields": {
+      "name": "Bulgaria Lev",
+      "symbol": "лв",
+      "code": "BGN"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 5,
+   "fields": {
+      "name": "Brazi Real",
+      "symbol": "R$",
+      "code": "BRL"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 6,
+   "fields": {
+      "name": "Canada Dollar",
+      "symbol": "$",
+      "code": "CAD"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 7,
+   "fields": {
+      "name": "Switzerland Franc",
+      "symbol": "CHF",
+      "code": "CHF"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 8,
+   "fields": {
+      "name": "China Yuan Renminbi",
+      "symbol": "¥",
+      "code": "CNY"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 9,
+   "fields": {
+      "name": "Czech Republic Koruna",
+      "symbol": "Kč",
+      "code": "CZK"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 10,
+   "fields": {
+      "name": "Denmark Krone",
+      "symbol": "kr",
+      "code": "DKK"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 11,
+   "fields": {
+      "name": "United Kingdom Pound",
+      "symbol": "£",
+      "code": "GBP"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 12,
+   "fields": {
+      "name": "Hong Kong Dollar",
+      "symbol": "$",
+      "code": "HKD"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 13,
+   "fields": {
+      "name": "Croatia Kuna",
+      "symbol": "kn",
+      "code": "HRK"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 14,
+   "fields": {
+      "name": "Hungary Forint",
+      "symbol": "Ft",
+      "code": "HUF"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 15,
+   "fields": {
+      "name": "Korea Won",
+      "symbol": "₩",
+      "code": "KRW"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 16,
+   "fields": {
+      "name": "Indonesia Rupiah",
+      "symbol": "Rp",
+      "code": "IDR"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 17,
+   "fields": {
+      "name": "Israel Shekel",
+      "symbol": "₪",
+      "code": "ILS"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 18,
+   "fields": {
+      "name": "India Rupee",
+      "symbol": "Ir",
+      "code": "INR"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 19,
+   "fields": {
+      "name": "Mexico Peso",
+      "symbol": "$",
+      "code": "MXN"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 20,
+   "fields": {
+      "name": "Malaysia Ringgit",
+      "symbol": "RM",
+      "code": "MYR"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 21,
+   "fields": {
+      "name": "Norway Krone",
+      "symbol": "kr",
+      "code": "NOK"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 22,
+   "fields": {
+      "name": "New Zealand Dollar",
+      "symbol": "NZD",
+      "code": "$"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 23,
+   "fields": {
+      "name": "Philippines Peso",
+      "symbol": "₱",
+      "code": "PHP"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 24,
+   "fields": {
+      "name": "Poland Zloty",
+      "symbol": "zł",
+      "code": "PLN"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 25,
+   "fields": {
+      "name": "Romania New Leu",
+      "symbol": "lei",
+      "code": "RON"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 26,
+   "fields": {
+      "name": "Russia Ruble",
+      "symbol": "₽",
+      "code": "RUB"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 27,
+   "fields": {
+      "name": "Swedan Krona",
+      "symbol": "kr",
+      "code": "SEK"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 28,
+   "fields": {
+      "name": "Singapore Dollar",
+      "symbol": "$",
+      "code": "SGD"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 29,
+   "fields": {
+      "name": "Thailand Baht",
+      "symbol": "฿",
+      "code": "THB"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 30,
+   "fields": {
+      "name": "Turkey Lira",
+      "symbol": "tl",
+      "code": "TRY"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 31,
+   "fields": {
+      "name": "South Africa Rand",
+      "symbol": "R",
+      "code": "ZAR"
+   }
+}, {
+   "model": "games.currency",
+   "pk": 32,
+   "fields": {
+      "name": "Japan Yen",
+      "symbol": "¥",
+      "code": "JPY"
+   }
+}, {
+   "model": "games.game",
+   "pk": 1,
+   "fields": {
+      "title": "1000/2000 No Limit Texas Hold'em",
+      "user": 1,
+      "public": true,
+      "tournament": false,
+      "min_buy_in": null,
+      "max_buy_in": null,
+      "currency": 15
+   }
+}, {
+   "model": "games.game",
+   "pk": 2,
+   "fields": {
+      "title": "2000/5000 No Limit Texas Hold'em",
+      "user": 1,
+      "public": true,
+      "tournament": false,
+      "min_buy_in": null,
+      "max_buy_in": null,
+      "currency": 15
+   }
+}, {
+   "model": "games.game",
+   "pk": 3,
+   "fields": {
+      "title": "1/2 No Limit Texas Hold'em",
+      "user": 1,
+      "public": true,
+      "tournament": false,
+      "min_buy_in": 50,
+      "max_buy_in": 200,
+      "currency": 2
+   }
+}, {
+   "model": "games.game",
+   "pk": 4,
+   "fields": {
+      "title": "2/5 No Limit Texas Hold'em",
+      "user": 1,
+      "public": true,
+      "tournament": false,
+      "min_buy_in": null,
+      "max_buy_in": null,
+      "currency": 2
+   }
+}]

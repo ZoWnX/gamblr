@@ -11,28 +11,36 @@ class PokerSessionForm(forms.ModelForm):
 
 class PokerSessionUpdateForm(forms.Form):
    time = forms.DateTimeField(
-         label="YYYY-MM-DD HH:mm",
+         widget=forms.TextInput(attrs={
+                  'placeholder': 'YYYY-MM-DD HH:mm',
+         }),
       )
    buy_in = forms.DecimalField(
          max_digits=15,
          decimal_places=2,
          required=False,
-         label="Total Buy in",
+         widget=forms.TextInput(attrs={
+                  'placeholder': 'Total Buy-In',
+         }),
       )
    chip_stack = forms.DecimalField(
          max_digits=15,
          decimal_places=2,
          required=False,
-         label="Current Chip Stack",
+         widget=forms.TextInput(attrs={
+                  'placeholder': 'Chip Stack',
+         }),
       )
    comment = forms.CharField(
          required = False,
-         widget=forms.Textarea
+         max_length=256,
       )
 
 class PokerSessionCreateForm(forms.Form):
    time = forms.DateTimeField(
-         label="YYYY-MM-DD HH:mm"
+         widget=forms.TextInput(attrs={
+                  'placeholder': 'YYYY-MM-DD HH:mm',
+         }),
       )
    location = forms.ModelChoiceField(
          queryset=Location.objects.all(),
@@ -52,7 +60,10 @@ class PokerSessionCreateForm(forms.Form):
          required=True,
          label="Total Buy in"
       )
-   public = forms.BooleanField()
+   public = forms.BooleanField(
+         required=False,
+         initial=True,
+      )
 
 class PokerSessionStartForm(forms.Form):
    location = forms.ModelChoiceField(
@@ -89,5 +100,6 @@ class ActivePokerSessionUpdateForm(forms.Form):
       )
    comment = forms.CharField(
          required = False,
-         widget=forms.Textarea
+         max_length=256,
       )
+

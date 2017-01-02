@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block title %}pokersessions/detail{% endblock %}
+{% block head %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.17.1/moment-with-locales.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+{% endblock %}
+{% block content %}
+{% load tz %}
+    <h2>Locations</h2>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button class='btn' type="submit">Add Location</button>
+     </form>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Timezone</th>
+            <th>Games</th>
+            <th>Public</th>
+            <th>Delete</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for location in locations %}
+          <tr>
+            <td>
+							{{ location.name }}
+            </td>
+            <td>
+              {{ location.timezone }}
+            </td>
+            <td>
+            	Games
+            </td>
+            <td>
+              {{ location.public }}
+            </td>
+            <td>
+              Delete
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+{% endblock %}
